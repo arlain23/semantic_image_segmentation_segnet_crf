@@ -1,5 +1,5 @@
 # Hyper parameters
-NUM_EPOCHS = 200
+NUM_EPOCHS = 400
 BATCH_SIZE = 1
 LEARNING_RATE = 0.01
 
@@ -16,7 +16,7 @@ MODEL_URLS = {
     'vgg19_bn': 'https://download.pytorch.org/models/vgg19_bn-c79401a0.pth',
 }
 
-MODEL_CKPT_FILE_NAME = 'model_2.pth'
+MODEL_CKPT_FILE_NAME = 'model_99.pth'
 
 MODEL_CKPT_PATH = 'ckpt'
 

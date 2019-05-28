@@ -1,17 +1,35 @@
 import torch.nn.functional as F
 from torch import nn
 from PIL import Image
+from z_src.utils import config as cfg
+import torch
+import torch.optim as optim
 import numpy as np
-import config as cfg
 
 
 class CrossEntropyLoss2d(nn.Module):
-    def __init__(self, weight=None, size_average=True, ignore_index=255):
+    def __init__(self, weight=None, size_average=None, ignore_index=255,
+                 reduce=None, reduction='mean'):
+        super(CrossEntropyLoss2d, self).__init__(weight, size_average, reduce, reduction)
+        self.ignore_index = ignore_index
         super(CrossEntropyLoss2d, self).__init__()
         self.nll_loss = nn.NLLLoss(weight, size_average, ignore_index)
 
     def forward(self, inputs, targets):
+        np.set_printoptions(threshold=np.inf)
         return self.nll_loss(F.log_softmax(inputs, dim=0), targets)
+
+
+def create_loss_and_optimizer(net, learning_rate=0.001):
+    # Loss function
+    # loss = CrossEntropyLoss2d()
+    loss = torch.nn.CrossEntropyLoss(ignore_index=255)
+    # loss = torch.nn.BCEWithLogitsLoss()
+
+    # optimizer = optim.Adam(net.parameters(), lr=learning_rate)
+    optimizer = optim.SGD(net.parameters(), lr=learning_rate, momentum=0.9)
+
+    return loss, optimizer
 
 
 def colorize_mask(mask):

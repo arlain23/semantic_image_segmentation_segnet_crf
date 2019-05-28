@@ -2,7 +2,7 @@ import torch
 from torch import nn
 from torchvision import models
 import torch.utils as utils
-import config as cfg
+from z_src.utils import config as cfg
 
 
 class _DecoderBlock(nn.Module):
