@@ -39,7 +39,7 @@ def img_to_rgb2(img):
 
 def get_data_loaders():
     transform = transforms.Compose([
-        transforms.Resize((256, 256), interpolation=PIL.Image.BILINEAR),
+        # transforms.Resize((cfg.IMAGE_SIZE['H'], cfg.IMAGE_SIZE['W']), interpolation=PIL.Image.BILINEAR),
         # transforms.Lambda(custom_image_transforms),
         transforms.ToTensor(),
         transforms.Lambda(custom_tensor_transforms),
@@ -47,7 +47,7 @@ def get_data_loaders():
     ])
 
     target_transform = transforms.Compose([
-        transforms.Resize((256, 256), interpolation=PIL.Image.BILINEAR),
+        # transforms.Resize((cfg.IMAGE_SIZE['H'], cfg.IMAGE_SIZE['W']), interpolation=PIL.Image.BILINEAR),
         transforms.Lambda(mask_to_tensor),
         # transforms.ToTensor(),
         # transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -57,7 +57,7 @@ def get_data_loaders():
     ])
 
     test_transform = transforms.Compose([
-        transforms.Resize((256, 256), interpolation=PIL.Image.BILINEAR),
+        transforms.Resize((cfg.IMAGE_SIZE['H'], cfg.IMAGE_SIZE['W']), interpolation=PIL.Image.BILINEAR),
         transforms.Lambda(img_to_rgb2),
         transforms.ToTensor(),
         # transforms.Normalize([103.939, 116.779, 123.68], [1.0, 1.0, 1.0])
@@ -72,13 +72,13 @@ def get_data_loaders():
         target_transform=target_transform)
 
     # test_set = train_set
-    test_set = torchvision.datasets.VOCSegmentation(
-        root='./voc/voc2007',
-        year='2007',
-        image_set='trainval',
-        download=True,
-        transform=transform,
-        target_transform=target_transform)
+    # test_set = torchvision.datasets.VOCSegmentation(
+    #     root='./voc/voc2007',
+    #     year='2007',
+    #     image_set='trainval',
+    #     download=True,
+    #     transform=transform,
+    #     target_transform=target_transform)
 
     # Data loaders
     train_loader = torch.utils.data.DataLoader(dataset=train_set,
@@ -86,9 +86,9 @@ def get_data_loaders():
                                                shuffle=True,
                                                num_workers=2)
 
-    test_loader = torch.utils.data.DataLoader(dataset=test_set,
-                                              batch_size=cfg.BATCH_SIZE,
-                                              shuffle=False,
-                                              num_workers=2)
+    # test_loader = torch.utils.data.DataLoader(dataset=test_set,
+    #                                           batch_size=cfg.BATCH_SIZE,
+    #                                           shuffle=False,
+    #                                           num_workers=2)
 
-    return train_loader, test_loader
+    return train_loader, train_loader

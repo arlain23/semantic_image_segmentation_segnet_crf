@@ -40,7 +40,6 @@ def train_net(net, n_epochs, learning_rate, loader, n_device):
     if saved_epoch >= n_epochs:
         print("model loaded from checkpoint")
     else:
-        saved_epoch = 180
         n_epochs -= saved_epoch
         print_set_length = int(len(loader) / 10)
         for epoch in range(n_epochs):
